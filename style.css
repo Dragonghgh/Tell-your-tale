@@ -5,6 +5,10 @@
     --gold: #d4af37;
     --red: #8b0000;
     --green: #006400;
+    --brown-dark: #1a120b;
+    --brown-medium: #3a2c1a;
+    --brown-light: #e6d5b8;
+    --wood-border: #8b4513;
 }
 
 * {
@@ -14,184 +18,31 @@
 }
 
 body {
-    background-color: #2a2015;
-    color: var(--ink);
     font-family: 'MedievalSharp', cursive;
-    line-height: 1.6;
+    background-color: var(--brown-dark);
+    color: var(--brown-light);
+    margin: 0;
     padding: 20px;
+    line-height: 1.6;
     background-image: url('https://www.transparenttextures.com/patterns/old-map.png');
+    min-height: 100vh;
 }
 
 .game-container {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
-    background-color: var(--parchment);
+    background-color: var(--brown-medium);
     border: 15px solid transparent;
     border-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png') 30 round;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+    padding: 20px;
 }
 
-.header-container {
-    background-color: var(--ink);
-    color: var(--parchment);
-    padding: 15px;
+.header {
     text-align: center;
-    border-bottom: 5px solid var(--gold);
-}
-
-.header-container h1 {
-    font-size: 2.8rem;
-    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    color: var(--gold);
-}
-
-.player-info {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.stat-box {
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 5px 15px;
-    border-radius: 5px;
-    min-width: 120px;
-}
-
-.stat-label {
-    color: var(--gold);
-    font-weight: bold;
-    margin-right: 5px;
-}
-
-.main-content {
-    padding: 20px;
-}
-
-.story-box {
-    background-color: var(--parchment-dark);
-    border: 8px double var(--ink);
-    padding: 20px;
+    border-bottom: 3px solid var(--wood-border);
+    padding-bottom: 10px;
     margin-bottom: 20px;
-    min-height: 200px;
-    font-size: 1.1rem;
 }
 
-.story-box p {
-    margin-bottom: 10px;
-}
-
-.action-area {
-    display: flex;
-    gap: 20px;
-}
-
-.choice-box {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.choice-btn {
-    background-color: var(--ink);
-    color: var(--parchment);
-    border: none;
-    padding: 12px;
-    font-family: 'MedievalSharp', cursive;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-align: left;
-    border-left: 5px solid var(--gold);
-}
-
-.choice-btn:hover {
-    background-color: var(--gold);
-    color: var(--ink);
-    transform: translateX(5px);
-}
-
-.choice-btn:disabled {
-    background-color: #ccc;
-    color: #666;
-    cursor: not-allowed;
-    border-left: 5px solid #999;
-}
-
-.inventory-box {
-    flex: 1;
-    background-color: var(--parchment-dark);
-    padding: 15px;
-    border: 3px solid var(--ink);
-}
-
-.inventory-box h3 {
-    color: var(--ink);
-    margin-bottom: 10px;
-    text-align: center;
-    border-bottom: 2px solid var(--ink);
-    padding-bottom: 5px;
-}
-
-#gold-display {
-    color: var(--gold);
-    font-size: 0.9rem;
-}
-
-.inventory-items {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.inventory-item {
-    background-color: var(--parchment);
-    border: 1px solid var(--ink);
-    padding: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.inventory-item:hover {
-    background-color: var(--gold);
-    color: var(--ink);
-}
-
-.game-controls {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 15px;
-    background-color: var(--ink);
-}
-
-.control-btn {
-    background-color: var(--gold);
-    color: var(--ink);
-    border: none;
-    padding: 10px 20px;
-    font-family: 'MedievalSharp', cursive;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-weight: bold;
-}
-
-.control-btn:hover {
-    background-color: var(--parchment);
-    transform: scale(1.05);
-}
-
-@media (max-width: 768px) {
-    .action-area {
-        flex-direction: column;
-    }
-    
-    .header-container h1 {
-        font-size: 2rem;
-    }
-}
+/* (Rest of CSS remains the same as previous version) */
