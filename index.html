@@ -6,41 +6,61 @@
     <title>Medieval Quest</title>
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --parchment: #f5e7c1;
+            --parchment-dark: #e5d7b1;
+            --ink: #3a3121;
+            --gold: #d4af37;
+            --red: #8b0000;
+            --green: #006400;
+            --brown-dark: #1a120b;
+            --brown-medium: #3a2c1a;
+            --brown-light: #e6d5b8;
+            --wood-border: #8b4513;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'MedievalSharp', cursive;
-            background-color: #1a120b;
-            color: #e6d5b8;
+            background-color: var(--brown-dark);
+            color: var(--brown-light);
             margin: 0;
             padding: 20px;
             line-height: 1.6;
             background-image: url('https://www.transparenttextures.com/patterns/old-map.png');
+            min-height: 100vh;
         }
-        
+
         .game-container {
             max-width: 800px;
             margin: 0 auto;
-            background-color: #3a2c1a;
+            background-color: var(--brown-medium);
             border: 15px solid transparent;
             border-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png') 30 round;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
             padding: 20px;
         }
-        
+
         .header {
             text-align: center;
-            border-bottom: 3px solid #8b4513;
+            border-bottom: 3px solid var(--wood-border);
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
-        
+
         h1 {
-            color: #d4af37;
+            color: var(--gold);
             text-shadow: 2px 2px 4px #000;
             margin: 0;
             font-size: 2.5rem;
             letter-spacing: 2px;
         }
-        
+
         .player-stats {
             display: flex;
             justify-content: space-around;
@@ -51,43 +71,43 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        
+
         .stat {
             text-align: center;
             min-width: 100px;
         }
-        
+
         .stat-label {
-            color: #d4af37;
+            color: var(--gold);
             font-size: 0.9rem;
         }
-        
+
         .stat-value {
             font-weight: bold;
             font-size: 1.1rem;
         }
-        
+
         .story-area {
             background-color: rgba(42, 32, 21, 0.8);
             padding: 20px;
             border-radius: 5px;
             min-height: 200px;
             margin-bottom: 20px;
-            border: 1px solid #8b4513;
+            border: 1px solid var(--wood-border);
             font-size: 1.1rem;
         }
-        
+
         .choices-area {
             display: grid;
             grid-template-columns: 1fr;
             gap: 10px;
             margin-bottom: 20px;
         }
-        
+
         .choice-btn {
-            background-color: #3a2c1a;
-            color: #e6d5b8;
-            border: 2px solid #8b4513;
+            background-color: var(--brown-medium);
+            color: var(--brown-light);
+            border: 2px solid var(--wood-border);
             padding: 15px;
             font-family: 'MedievalSharp', cursive;
             font-size: 1rem;
@@ -96,12 +116,12 @@
             transition: all 0.3s;
             text-align: left;
         }
-        
+
         .choice-btn:hover {
-            background-color: #8b4513;
+            background-color: var(--wood-border);
             transform: translateX(5px);
         }
-        
+
         .choice-btn:disabled {
             background-color: #2a2015;
             color: #6b5b4b;
@@ -109,53 +129,53 @@
             cursor: not-allowed;
             transform: none;
         }
-        
+
         .inventory-area {
             background-color: rgba(42, 32, 21, 0.8);
             padding: 15px;
             border-radius: 5px;
-            border: 1px solid #8b4513;
+            border: 1px solid var(--wood-border);
             margin-bottom: 20px;
         }
-        
+
         .inventory-title {
-            color: #d4af37;
+            color: var(--gold);
             margin-top: 0;
-            border-bottom: 2px solid #8b4513;
+            border-bottom: 2px solid var(--wood-border);
             padding-bottom: 5px;
             text-align: center;
         }
-        
+
         .inventory-items {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             justify-content: center;
         }
-        
+
         .inventory-item {
-            background-color: #3a2c1a;
+            background-color: var(--brown-medium);
             padding: 8px 12px;
             border-radius: 5px;
-            border: 1px solid #8b4513;
+            border: 1px solid var(--wood-border);
             cursor: pointer;
             transition: all 0.2s;
         }
-        
+
         .inventory-item:hover {
-            background-color: #8b4513;
+            background-color: var(--wood-border);
         }
-        
+
         .game-controls {
             display: flex;
             justify-content: center;
             gap: 20px;
             padding-top: 15px;
-            border-top: 2px solid #8b4513;
+            border-top: 2px solid var(--wood-border);
         }
-        
+
         .control-btn {
-            background-color: #8b4513;
+            background-color: var(--wood-border);
             color: #fff;
             border: none;
             padding: 12px 25px;
@@ -165,16 +185,16 @@
             font-size: 1rem;
             transition: all 0.3s;
         }
-        
+
         .control-btn:hover {
             background-color: #a05a28;
             transform: scale(1.05);
         }
-        
+
         .npc-portrait {
             width: 100px;
             height: 100px;
-            border: 3px solid #8b4513;
+            border: 3px solid var(--wood-border);
             border-radius: 50%;
             margin: 0 auto 15px;
             background-color: #2a2015;
@@ -182,26 +202,26 @@
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-            color: #d4af37;
+            color: var(--gold);
         }
-        
+
         .merchant-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 10px;
-            border-bottom: 1px dashed #8b4513;
+            border-bottom: 1px dashed var(--wood-border);
             margin-bottom: 5px;
         }
-        
+
         .merchant-item:last-child {
             border-bottom: none;
         }
-        
+
         .character-creation {
             text-align: center;
         }
-        
+
         .character-option {
             display: inline-block;
             margin: 15px;
@@ -209,28 +229,28 @@
             transition: all 0.3s;
             width: 120px;
         }
-        
+
         .character-option:hover {
             transform: scale(1.1);
         }
-        
+
         .char-portrait {
             width: 100px;
             height: 100px;
             border-radius: 50%;
             background-color: #2a2015;
-            border: 3px solid #d4af37;
+            border: 3px solid var(--gold);
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
         }
-        
+
         .char-name-input {
             background: #2a2015;
-            border: 2px solid #8b4513;
-            color: #e6d5b8;
+            border: 2px solid var(--wood-border);
+            color: var(--brown-light);
             padding: 10px;
             font-family: 'MedievalSharp', cursive;
             margin: 15px auto;
@@ -239,25 +259,46 @@
             font-size: 1.1rem;
             text-align: center;
         }
-        
+
         .quest-log {
             background-color: rgba(42, 32, 21, 0.8);
             padding: 15px;
             border-radius: 5px;
-            border: 1px solid #8b4513;
+            border: 1px solid var(--wood-border);
             margin-top: 20px;
         }
-        
+
         .quest-title {
-            color: #d4af37;
-            border-bottom: 1px solid #8b4513;
+            color: var(--gold);
+            border-bottom: 1px solid var(--wood-border);
             padding-bottom: 5px;
         }
-        
+
         .quest-entry {
             margin-bottom: 10px;
         }
-        
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 100;
+            animation: fadeInOut 3s ease-in-out;
+            display: none;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; top: 10px; }
+            10% { opacity: 1; top: 20px; }
+            90% { opacity: 1; top: 20px; }
+            100% { opacity: 0; top: 10px; }
+        }
+
         @media (max-width: 600px) {
             .character-option {
                 margin: 10px;
@@ -273,10 +314,20 @@
             .stat {
                 min-width: 80px;
             }
+            
+            .game-container {
+                padding: 10px;
+            }
+            
+            .choice-btn {
+                padding: 12px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="notification" id="notification"></div>
+    
     <div class="game-container">
         <div class="header">
             <h1>MEDIEVAL QUEST</h1>
@@ -301,30 +352,31 @@
         </div>
         
         <div class="story-area" id="story">
-            <p>Loading your adventure...</p>
+            <!-- Content loaded by JavaScript -->
         </div>
         
         <div class="choices-area" id="choices">
-            <!-- Choices will appear here -->
+            <!-- Choices loaded by JavaScript -->
         </div>
         
         <div class="inventory-area">
             <h3 class="inventory-title">INVENTORY <span id="gold-display">(0 gold)</span></h3>
             <div class="inventory-items" id="inventory">
-                <!-- Items will appear here -->
+                <!-- Items loaded by JavaScript -->
             </div>
         </div>
         
         <div class="quest-log" id="quest-log">
             <h3 class="quest-title">ACTIVE QUESTS</h3>
             <div id="quest-entries">
-                <!-- Quests will appear here -->
+                <!-- Quests loaded by JavaScript -->
             </div>
         </div>
         
         <div class="game-controls">
             <button class="control-btn" id="save-btn">SAVE GAME</button>
             <button class="control-btn" id="load-btn">LOAD GAME</button>
+            <button class="control-btn" id="reset-btn">NEW GAME</button>
         </div>
     </div>
 
@@ -342,7 +394,9 @@
                     strength: 5,
                     agility: 5,
                     intelligence: 5,
-                    charisma: 5
+                    charisma: 5,
+                    defense: 0,
+                    wisdom: 0
                 },
                 quests: [],
                 flags: {}
@@ -850,55 +904,70 @@
         };
 
         // Game Functions
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
         function loadScene(sceneId) {
-            const scene = gameData.scenes[sceneId];
-            if (!scene) {
-                console.error(`Scene ${sceneId} not found!`);
-                return;
-            }
-            
-            gameData.currentScene = sceneId;
-            
-            // Process scene text (could be string or function)
-            let sceneText = typeof scene.text === 'function' ? scene.text() : scene.text;
-            document.getElementById('story').innerHTML = sceneText;
-            
-            // Process scene choices (could be array or function)
-            let sceneChoices = typeof scene.choices === 'function' ? scene.choices() : scene.choices;
-            
-            const choicesContainer = document.getElementById('choices');
-            choicesContainer.innerHTML = '';
-            
-            if (sceneChoices && sceneChoices.length > 0) {
-                sceneChoices.forEach(choice => {
+            try {
+                const scene = gameData.scenes[sceneId];
+                if (!scene) throw new Error(`Scene ${sceneId} not found!`);
+                
+                gameData.currentScene = sceneId;
+                
+                // Process scene text (could be string or function)
+                let sceneText = typeof scene.text === 'function' ? scene.text() : scene.text;
+                document.getElementById('story').innerHTML = sceneText;
+                
+                // Process scene choices (could be array or function)
+                let sceneChoices = typeof scene.choices === 'function' ? scene.choices() : scene.choices;
+                
+                const choicesContainer = document.getElementById('choices');
+                choicesContainer.innerHTML = '';
+                
+                if (sceneChoices && sceneChoices.length > 0) {
+                    sceneChoices.forEach(choice => {
+                        const button = document.createElement('button');
+                        button.className = 'choice-btn';
+                        button.innerHTML = choice.text;
+                        button.onclick = () => makeChoice(choice);
+                        
+                        // Disable if requirements not met
+                        if (choice.requires && !hasRequirements(choice.requires)) {
+                            button.disabled = true;
+                        }
+                        
+                        choicesContainer.appendChild(button);
+                    });
+                } else {
+                    // If no choices, provide a default continue button
                     const button = document.createElement('button');
                     button.className = 'choice-btn';
-                    button.innerHTML = choice.text;
-                    button.onclick = () => makeChoice(choice);
-                    
-                    // Disable if requirements not met
-                    if (choice.requires && !hasRequirements(choice.requires)) {
-                        button.disabled = true;
-                    }
-                    
+                    button.textContent = "Continue";
+                    button.onclick = () => loadScene('village_square'); // Default return to village
                     choicesContainer.appendChild(button);
-                });
-            } else {
-                // If no choices, provide a default continue button
-                const button = document.createElement('button');
-                button.className = 'choice-btn';
-                button.textContent = "Continue";
-                button.onclick = () => loadScene('village_square'); // Default return to village
-                choicesContainer.appendChild(button);
+                }
+                
+                // Apply any scene effects
+                if (scene.effects) {
+                    const effects = typeof scene.effects === 'function' ? scene.effects() : scene.effects;
+                    applyEffects(effects);
+                }
+                
+                updateUI();
+            } catch (error) {
+                console.error("Scene loading error:", error);
+                document.getElementById('story').innerHTML = `
+                    <p>Error loading scene. Please refresh.</p>
+                    <p><small>${error.message}</small></p>
+                `;
             }
-            
-            // Apply any scene effects
-            if (scene.effects) {
-                const effects = typeof scene.effects === 'function' ? scene.effects() : scene.effects;
-                applyEffects(effects);
-            }
-            
-            updateUI();
         }
 
         function makeChoice(choice) {
@@ -953,16 +1022,14 @@
                     if (gameData.player.gold >= gameData.items[actionParam].value) {
                         gameData.player.gold -= gameData.items[actionParam].value;
                         gameData.player.inventory.push(actionParam);
-                        document.getElementById('story').innerHTML += 
-                            `<p>You purchased: ${gameData.items[actionParam].name}</p>`;
+                        showNotification(`Purchased: ${gameData.items[actionParam].name}`);
                     }
                     break;
                     
                 case 'addQuest':
                     if (!gameData.player.quests.includes(actionParam)) {
                         gameData.player.quests.push(actionParam);
-                        document.getElementById('story').innerHTML += 
-                            `<p><b>New Quest:</b> ${gameData.quests[actionParam].name}</p>`;
+                        showNotification(`New Quest: ${gameData.quests[actionParam].name}`);
                     }
                     break;
             }
@@ -974,20 +1041,21 @@
             if (effects.gold) {
                 gameData.player.gold += effects.gold;
                 if (effects.gold > 0) {
-                    document.getElementById('story').innerHTML += `<p>Received ${effects.gold} gold!</p>`;
+                    showNotification(`Received ${effects.gold} gold!`);
                 } else {
-                    document.getElementById('story').innerHTML += `<p>Spent ${-effects.gold} gold.</p>`;
+                    showNotification(`Spent ${-effects.gold} gold.`);
                 }
             }
             
             if (effects.reputation) {
                 gameData.player.reputation += effects.reputation;
                 gameData.player.reputation = Math.max(0, Math.min(100, gameData.player.reputation));
+                showNotification(`Reputation ${effects.reputation > 0 ? 'increased' : 'decreased'}!`);
             }
             
             if (effects.addItem) {
                 gameData.player.inventory.push(effects.addItem);
-                document.getElementById('story').innerHTML += `<p>Obtained: ${gameData.items[effects.addItem]?.name || effects.addItem}</p>`;
+                showNotification(`Obtained: ${gameData.items[effects.addItem]?.name || effects.addItem}`);
             }
             
             if (effects.removeItem) {
@@ -1001,8 +1069,7 @@
                 const index = gameData.player.quests.indexOf(effects.completeQuest);
                 if (index > -1) {
                     gameData.player.quests.splice(index, 1);
-                    document.getElementById('story').innerHTML += 
-                        `<p><b>Quest Completed:</b> ${gameData.quests[effects.completeQuest]?.name || effects.completeQuest}</p>`;
+                    showNotification(`Quest Completed: ${gameData.quests[effects.completeQuest]?.name || effects.completeQuest}`);
                 }
             }
             
@@ -1093,27 +1160,70 @@
         }
 
         function saveGame() {
-            localStorage.setItem('medievalQuestSave', JSON.stringify(gameData));
-            alert('Game saved successfully!');
+            try {
+                localStorage.setItem('medievalQuestSave', JSON.stringify(gameData));
+                showNotification('Game saved successfully!');
+            } catch (error) {
+                console.error("Save error:", error);
+                showNotification('Failed to save game!');
+            }
         }
 
         function loadGame() {
-            const savedData = localStorage.getItem('medievalQuestSave');
-            if (savedData) {
-                const parsed = JSON.parse(savedData);
-                Object.assign(gameData, parsed);
+            try {
+                const savedData = localStorage.getItem('medievalQuestSave');
+                if (savedData) {
+                    const parsed = JSON.parse(savedData);
+                    Object.assign(gameData, parsed);
+                    loadScene(gameData.currentScene);
+                    showNotification('Game loaded successfully!');
+                } else {
+                    showNotification('No saved game found!');
+                }
+            } catch (error) {
+                console.error("Load error:", error);
+                showNotification('Failed to load game!');
+            }
+        }
+
+        function resetGame() {
+            if (confirm('Are you sure you want to start a new game? All progress will be lost.')) {
+                // Reset game data
+                gameData.player = {
+                    name: "",
+                    class: "",
+                    gold: 0,
+                    reputation: 50,
+                    inventory: [],
+                    stats: {
+                        strength: 5,
+                        agility: 5,
+                        intelligence: 5,
+                        charisma: 5,
+                        defense: 0,
+                        wisdom: 0
+                    },
+                    quests: [],
+                    flags: {}
+                };
+                gameData.currentScene = 'character_creation';
+                
+                // Clear saved game
+                localStorage.removeItem('medievalQuestSave');
+                
+                // Start fresh
                 loadScene(gameData.currentScene);
-                alert('Game loaded successfully!');
-            } else {
-                alert('No saved game found!');
+                showNotification('New game started!');
             }
         }
 
         // Initialize the game
         document.getElementById('save-btn').onclick = saveGame;
         document.getElementById('load-btn').onclick = loadGame;
+        document.getElementById('reset-btn').onclick = resetGame;
         
-        // Start the game immediately
+        // Start the game immediately with empty story area
+        document.getElementById('story').innerHTML = '';
         loadScene(gameData.currentScene);
     </script>
 </body>
