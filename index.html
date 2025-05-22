@@ -4,54 +4,336 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medieval Quest</title>
-    <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'MedievalSharp', cursive;
+            background-color: #1a120b;
+            color: #e6d5b8;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #3a2c1a;
+            border: 10px solid #8b4513;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #8b4513;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #d4af37;
+            text-shadow: 2px 2px 4px #000;
+            margin: 0;
+        }
+        
+        .player-stats {
+            display: flex;
+            justify-content: space-around;
+            background-color: #2a2015;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            color: #d4af37;
+            font-weight: bold;
+        }
+        
+        .story-area {
+            background-color: #2a2015;
+            padding: 20px;
+            border-radius: 5px;
+            min-height: 150px;
+            margin-bottom: 20px;
+            border: 1px solid #8b4513;
+        }
+        
+        .choices-area {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .choice-btn {
+            background-color: #3a2c1a;
+            color: #e6d5b8;
+            border: 2px solid #8b4513;
+            padding: 12px;
+            font-family: 'MedievalSharp', cursive;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+            text-align: left;
+        }
+        
+        .choice-btn:hover {
+            background-color: #8b4513;
+        }
+        
+        .inventory-area {
+            background-color: #2a2015;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #8b4513;
+        }
+        
+        .inventory-title {
+            color: #d4af37;
+            margin-top: 0;
+            border-bottom: 1px solid #8b4513;
+            padding-bottom: 5px;
+        }
+        
+        .inventory-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .inventory-item {
+            background-color: #3a2c1a;
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #8b4513;
+        }
+        
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .control-btn {
+            background-color: #8b4513;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-family: 'MedievalSharp', cursive;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <div class="game-container">
-        <div class="header-container">
-            <h1>MEDIEVAL QUEST</h1>
-            <div class="player-info">
-                <div class="stat-box">
-                    <span class="stat-label">Name:</span>
-                    <span id="player-name">Adventurer</span>
+        <div class="header">
+            <h1>Medieval Quest</h1>
+            <div class="player-stats">
+                <div class="stat">
+                    <div>Gold</div>
+                    <div class="stat-value" id="gold">100</div>
                 </div>
-                <div class="stat-box">
-                    <span class="stat-label">Gold:</span>
-                    <span id="player-gold">100</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-label">Reputation:</span>
-                    <span id="player-rep">Neutral</span>
+                <div class="stat">
+                    <div>Reputation</div>
+                    <div class="stat-value" id="reputation">Neutral</div>
                 </div>
             </div>
         </div>
         
-        <div class="main-content">
-            <div id="story-text" class="story-box">
-                <p>Loading your adventure...</p>
-            </div>
-            
-            <div class="action-area">
-                <div id="choices" class="choice-box">
-                    <!-- Choices will appear here -->
-                </div>
-                
-                <div class="inventory-box">
-                    <h3>INVENTORY <span id="gold-display">(100 gold)</span></h3>
-                    <div id="inventory" class="inventory-items">
-                        <!-- Items will appear here -->
-                    </div>
-                </div>
+        <div class="story-area" id="story">
+            <p>Loading your adventure...</p>
+        </div>
+        
+        <div class="choices-area" id="choices">
+            <!-- Choices will appear here -->
+        </div>
+        
+        <div class="inventory-area">
+            <h3 class="inventory-title">Inventory</h3>
+            <div class="inventory-items" id="inventory">
+                <!-- Items will appear here -->
             </div>
         </div>
         
         <div class="game-controls">
-            <button id="save-btn" class="control-btn">Save Game</button>
-            <button id="load-btn" class="control-btn">Load Game</button>
+            <button class="control-btn" id="save-btn">Save Game</button>
+            <button class="control-btn" id="load-btn">Load Game</button>
         </div>
     </div>
-    
-    <script src="js/game.js"></script>
+
+    <script>
+        // Game Data
+        const gameData = {
+            currentScene: 'start',
+            player: {
+                gold: 100,
+                reputation: 50,
+                inventory: []
+            },
+            scenes: {
+                start: {
+                    text: "You awaken in the small village of Briarwood, the morning sun peeking through your window. Today is the day you begin your journey as an adventurer. What path will you take?",
+                    choices: [
+                        { text: "Visit the local tavern", nextScene: "tavern", effects: { reputation: 2 } },
+                        { text: "Go to the blacksmith", nextScene: "blacksmith", effects: { reputation: -1 } },
+                        { text: "Head to the town square", nextScene: "square" }
+                    ]
+                },
+                tavern: {
+                    text: "The Rusty Tankard tavern is bustling with activity. The smell of ale and roasted meat fills the air. Several people seem to be looking for help with various tasks.",
+                    choices: [
+                        { text: "Talk to the bartender", nextScene: "bartender" },
+                        { text: "Approach the mercenaries", nextScene: "mercenaries" },
+                        { text: "Return to the village", nextScene: "start" }
+                    ]
+                },
+                bartender: {
+                    text: "The bartender wipes a glass as you approach. 'Looking for work, eh? Old Thom had his sword stolen last night by some ruffians. Bring it back and there's 50 gold in it for you.'",
+                    choices: [
+                        { text: "Accept the quest", nextScene: "sword_quest" },
+                        { text: "Ask for more information", nextScene: "sword_info" },
+                        { text: "Decline politely", nextScene: "tavern", effects: { reputation: -1 } }
+                    ]
+                },
+                sword_quest: {
+                    text: "You've accepted the quest to retrieve Thom's sword. The bartender mentions the thieves were last seen heading toward the old mill. How will you proceed?",
+                    choices: [
+                        { text: "Go directly to the mill", nextScene: "mill" },
+                        { text: "Buy supplies first (30 gold)", nextScene: "supplies", requires: { gold: 30 } },
+                        { text: "Try to recruit help", nextScene: "recruit" }
+                    ]
+                },
+                supplies: {
+                    text: "You visit the local shop and purchase a health potion for 30 gold. Now prepared, you head toward the old mill where the thieves were last seen.",
+                    choices: [
+                        { text: "Approach cautiously", nextScene: "mill_careful" },
+                        { text: "Charge in boldly", nextScene: "mill_bold" }
+                    ],
+                    effects: { gold: -30, addItem: "health_potion" }
+                }
+            },
+            items: {
+                health_potion: {
+                    name: "Health Potion",
+                    description: "Restores your health"
+                }
+            }
+        };
+
+        // Game Functions
+        function loadScene(sceneId) {
+            const scene = gameData.scenes[sceneId];
+            if (!scene) return;
+            
+            gameData.currentScene = sceneId;
+            document.getElementById('story').innerHTML = `<p>${scene.text}</p>`;
+            
+            const choicesContainer = document.getElementById('choices');
+            choicesContainer.innerHTML = '';
+            
+            scene.choices.forEach(choice => {
+                const button = document.createElement('button');
+                button.className = 'choice-btn';
+                button.textContent = choice.text;
+                button.onclick = () => makeChoice(choice);
+                
+                if (choice.requires && !hasRequirements(choice.requires)) {
+                    button.disabled = true;
+                }
+                
+                choicesContainer.appendChild(button);
+            });
+            
+            if (scene.effects) {
+                applyEffects(scene.effects);
+            }
+            
+            updateUI();
+        }
+
+        function makeChoice(choice) {
+            if (choice.effects) {
+                applyEffects(choice.effects);
+            }
+            loadScene(choice.nextScene);
+        }
+
+        function applyEffects(effects) {
+            if (effects.gold) {
+                gameData.player.gold += effects.gold;
+            }
+            if (effects.reputation) {
+                gameData.player.reputation += effects.reputation;
+            }
+            if (effects.addItem) {
+                gameData.player.inventory.push(effects.addItem);
+            }
+            updateUI();
+        }
+
+        function hasRequirements(requires) {
+            if (requires.gold && gameData.player.gold < requires.gold) {
+                return false;
+            }
+            return true;
+        }
+
+        function updateUI() {
+            document.getElementById('gold').textContent = gameData.player.gold;
+            
+            let repText;
+            if (gameData.player.reputation < 20) repText = "Hated";
+            else if (gameData.player.reputation < 40) repText = "Disliked";
+            else if (gameData.player.reputation < 60) repText = "Neutral";
+            else if (gameData.player.reputation < 80) repText = "Liked";
+            else repText = "Revered";
+            document.getElementById('reputation').textContent = repText;
+            
+            const inventoryContainer = document.getElementById('inventory');
+            inventoryContainer.innerHTML = '';
+            
+            gameData.player.inventory.forEach(itemId => {
+                const item = gameData.items[itemId];
+                if (item) {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'inventory-item';
+                    itemElement.textContent = item.name;
+                    itemElement.title = item.description;
+                    inventoryContainer.appendChild(itemElement);
+                }
+            });
+        }
+
+        function saveGame() {
+            localStorage.setItem('medievalQuestSave', JSON.stringify(gameData));
+            alert('Game saved!');
+        }
+
+        function loadGame() {
+            const savedData = localStorage.getItem('medievalQuestSave');
+            if (savedData) {
+                Object.assign(gameData, JSON.parse(savedData));
+                loadScene(gameData.currentScene);
+                alert('Game loaded!');
+            } else {
+                alert('No saved game found!');
+            }
+        }
+
+        // Initialize the game
+        document.getElementById('save-btn').onclick = saveGame;
+        document.getElementById('load-btn').onclick = loadGame;
+        loadScene(gameData.currentScene);
+    </script>
 </body>
 </html>
