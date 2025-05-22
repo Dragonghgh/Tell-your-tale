@@ -592,10 +592,12 @@
                 },
                 game_start: {
                     id: 'game_start',
-                    text: `
-                        <p>You stand at the gates of Briarwood, a bustling village on the edge of the kingdom. The sun shines brightly as merchants call out their wares and townsfolk go about their daily business.</p>
-                        <p>As ${gameData.player.name} the ${gameData.player.class}, you've come seeking adventure and fortune. Where will you begin?</p>
-                    `,
+                    text: function() {
+                        return `
+                            <p>You stand at the gates of Briarwood, a bustling village on the edge of the kingdom. The sun shines brightly as merchants call out their wares and townsfolk go about their daily business.</p>
+                            <p>As ${gameData.player.name} the ${gameData.player.class}, you've come seeking adventure and fortune. Where will you begin?</p>
+                        `;
+                    },
                     choices: [
                         { 
                             text: "Enter the village", 
@@ -820,34 +822,6 @@
                         }
                     ]
                 },
-                // More scenes would continue here...
-                mill_approach: {
-                    id: 'mill_approach',
-                    text: `
-                        <p>You approach the old mill cautiously. The building is dilapidated but shows signs of recent activity - fresh footprints in the mud and smoke from the chimney.</p>
-                        <p>How will you enter?</p>
-                    `,
-                    choices: [
-                        {
-                            text: "Knock on the door and demand the sword",
-                            nextScene: "mill_confrontation",
-                            requires: { strength: 6 }
-                        },
-                        {
-                            text: "Sneak around back",
-                            nextScene: "mill_sneak",
-                            requires: { agility: 6 }
-                        },
-                        {
-                            text: "Wait and observe first",
-                            nextScene: "mill_watch"
-                        },
-                        {
-                            text: "Return to village to prepare more",
-                            nextScene: "village_square"
-                        }
-                    ]
-                },
                 return_sword: {
                     id: 'return_sword',
                     text: `
@@ -855,6 +829,12 @@
                         <p><b>Gareth:</b> "You found it! Thom will be pleased. Here's your reward as promised."</p>
                         <p>He hands you a small pouch of coins.</p>
                     `,
+                    effects: {
+                        gold: 50,
+                        reputation: 10,
+                        removeItem: "sword",
+                        completeQuest: "stolen_sword"
+                    },
                     choices: [
                         {
                             text: "Ask about other work",
@@ -864,15 +844,7 @@
                             text: "Thank him and leave",
                             nextScene: "tavern"
                         }
-                    ],
-                    effects: function() {
-                        return {
-                            gold: 50,
-                            reputation: 10,
-                            removeItem: "sword",
-                            completeQuest: "stolen_sword"
-                        };
-                    }
+                    ]
                 }
             }
         };
@@ -1060,7 +1032,7 @@
         function getCurrentNPC() {
             // Check if current scene is related to an NPC
             const scene = gameData.scenes[gameData.currentScene];
-            if (scene && scene.id.includes('_talk') || scene.id.includes('_shop')) {
+            if (scene && (scene.id.includes('_talk') || scene.id.includes('_shop'))) {
                 const npcId = scene.id.split('_')[0];
                 return gameData.npcs[npcId];
             }
@@ -1141,17 +1113,8 @@
         document.getElementById('save-btn').onclick = saveGame;
         document.getElementById('load-btn').onclick = loadGame;
         
-        // Check for saved game
-        const savedData = localStorage.getItem('medievalQuestSave');
-        if (savedData) {
-            if (confirm('Would you like to load your saved game?')) {
-                loadGame();
-            } else {
-                loadScene(gameData.currentScene);
-            }
-        } else {
-            loadScene(gameData.currentScene);
-        }
+        // Start the game immediately
+        loadScene(gameData.currentScene);
     </script>
 </body>
 </html>
