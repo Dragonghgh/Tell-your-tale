@@ -45,10 +45,13 @@
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
         .stat {
             text-align: center;
+            margin: 5px;
+            min-width: 80px;
         }
         
         .stat-value {
@@ -89,11 +92,17 @@
             background-color: #8b4513;
         }
         
+        .choice-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
         .inventory-area {
             background-color: #2a2015;
             padding: 15px;
             border-radius: 5px;
             border: 1px solid #8b4513;
+            margin-bottom: 20px;
         }
         
         .inventory-title {
@@ -114,13 +123,13 @@
             padding: 8px 12px;
             border-radius: 5px;
             border: 1px solid #8b4513;
+            cursor: pointer;
         }
         
         .game-controls {
             display: flex;
             justify-content: center;
             gap: 15px;
-            margin-top: 20px;
         }
         
         .control-btn {
@@ -132,6 +141,69 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        
+        .npc-portrait {
+            width: 100px;
+            height: 100px;
+            border: 3px solid #8b4513;
+            border-radius: 5px;
+            margin: 0 auto 15px;
+            background-color: #2a2015;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4af37;
+        }
+        
+        .merchant-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px dashed #8b4513;
+        }
+        
+        .merchant-item:last-child {
+            border-bottom: none;
+        }
+        
+        .character-creation {
+            text-align: center;
+        }
+        
+        .character-option {
+            display: inline-block;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .character-option:hover {
+            transform: scale(1.05);
+        }
+        
+        .char-portrait {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #2a2015;
+            border: 3px solid #d4af37;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        
+        .char-name-input {
+            background: #2a2015;
+            border: 2px solid #8b4513;
+            color: #e6d5b8;
+            padding: 8px;
+            font-family: 'MedievalSharp', cursive;
+            margin-top: 10px;
+            width: 200px;
+        }
     </style>
 </head>
 <body>
@@ -140,12 +212,20 @@
             <h1>Medieval Quest</h1>
             <div class="player-stats">
                 <div class="stat">
+                    <div>Name</div>
+                    <div class="stat-value" id="player-name">-</div>
+                </div>
+                <div class="stat">
                     <div>Gold</div>
-                    <div class="stat-value" id="gold">100</div>
+                    <div class="stat-value" id="gold">0</div>
+                </div>
+                <div class="stat">
+                    <div>Class</div>
+                    <div class="stat-value" id="player-class">-</div>
                 </div>
                 <div class="stat">
                     <div>Reputation</div>
-                    <div class="stat-value" id="reputation">Neutral</div>
+                    <div class="stat-value" id="reputation">-</div>
                 </div>
             </div>
         </div>
@@ -159,7 +239,7 @@
         </div>
         
         <div class="inventory-area">
-            <h3 class="inventory-title">Inventory</h3>
+            <h3 class="inventory-title">Inventory <span id="gold-display">(0 gold)</span></h3>
             <div class="inventory-items" id="inventory">
                 <!-- Items will appear here -->
             </div>
@@ -174,58 +254,161 @@
     <script>
         // Game Data
         const gameData = {
-            currentScene: 'start',
+            currentScene: 'character_creation',
             player: {
-                gold: 100,
+                name: "",
+                class: "",
+                gold: 0,
                 reputation: 50,
-                inventory: []
-            },
-            scenes: {
-                start: {
-                    text: "You awaken in the small village of Briarwood, the morning sun peeking through your window. Today is the day you begin your journey as an adventurer. What path will you take?",
-                    choices: [
-                        { text: "Visit the local tavern", nextScene: "tavern", effects: { reputation: 2 } },
-                        { text: "Go to the blacksmith", nextScene: "blacksmith", effects: { reputation: -1 } },
-                        { text: "Head to the town square", nextScene: "square" }
-                    ]
-                },
-                tavern: {
-                    text: "The Rusty Tankard tavern is bustling with activity. The smell of ale and roasted meat fills the air. Several people seem to be looking for help with various tasks.",
-                    choices: [
-                        { text: "Talk to the bartender", nextScene: "bartender" },
-                        { text: "Approach the mercenaries", nextScene: "mercenaries" },
-                        { text: "Return to the village", nextScene: "start" }
-                    ]
-                },
-                bartender: {
-                    text: "The bartender wipes a glass as you approach. 'Looking for work, eh? Old Thom had his sword stolen last night by some ruffians. Bring it back and there's 50 gold in it for you.'",
-                    choices: [
-                        { text: "Accept the quest", nextScene: "sword_quest" },
-                        { text: "Ask for more information", nextScene: "sword_info" },
-                        { text: "Decline politely", nextScene: "tavern", effects: { reputation: -1 } }
-                    ]
-                },
-                sword_quest: {
-                    text: "You've accepted the quest to retrieve Thom's sword. The bartender mentions the thieves were last seen heading toward the old mill. How will you proceed?",
-                    choices: [
-                        { text: "Go directly to the mill", nextScene: "mill" },
-                        { text: "Buy supplies first (30 gold)", nextScene: "supplies", requires: { gold: 30 } },
-                        { text: "Try to recruit help", nextScene: "recruit" }
-                    ]
-                },
-                supplies: {
-                    text: "You visit the local shop and purchase a health potion for 30 gold. Now prepared, you head toward the old mill where the thieves were last seen.",
-                    choices: [
-                        { text: "Approach cautiously", nextScene: "mill_careful" },
-                        { text: "Charge in boldly", nextScene: "mill_bold" }
-                    ],
-                    effects: { gold: -30, addItem: "health_potion" }
+                inventory: [],
+                stats: {
+                    strength: 5,
+                    agility: 5,
+                    intelligence: 5,
+                    charisma: 5
                 }
             },
             items: {
                 health_potion: {
+                    id: "health_potion",
                     name: "Health Potion",
-                    description: "Restores your health"
+                    description: "Restores 20 health",
+                    type: "consumable",
+                    value: 30
+                },
+                dagger: {
+                    id: "dagger",
+                    name: "Iron Dagger",
+                    description: "Small but deadly",
+                    type: "weapon",
+                    value: 50,
+                    damage: 5
+                },
+                cloak: {
+                    id: "cloak",
+                    name: "Wool Cloak",
+                    description: "Provides basic protection",
+                    type: "armor",
+                    value: 40,
+                    defense: 2
+                }
+            },
+            npcs: {
+                bartender: {
+                    name: "Gareth",
+                    portrait: "🍺",
+                    dialogue: {
+                        greeting: "'What'll you have?'",
+                        options: [
+                            {
+                                text: "Any work available?",
+                                response: "'Aye, I might have something for you...'",
+                                nextScene: "bartender_quest"
+                            },
+                            {
+                                text: "Just a drink",
+                                response: "'Here you go. That'll be 2 copper.'",
+                                effects: { gold: -2 }
+                            },
+                            {
+                                text: "Who hangs around here?",
+                                response: "'All sorts. Mercenaries, travelers, the occasional shady character.'"
+                            }
+                        ]
+                    }
+                },
+                merchant: {
+                    name: "Old Thom",
+                    portrait: "💰",
+                    dialogue: {
+                        greeting: "'Welcome to my humble shop. What can I do for you?'",
+                        options: [
+                            {
+                                text: "Show me your wares",
+                                response: "'Of course! Take a look...'",
+                                nextScene: "merchant_shop"
+                            },
+                            {
+                                text: "What's new in town?",
+                                response: "'I heard the blacksmith got a shipment of rare metals.'"
+                            }
+                        ]
+                    }
+                }
+            },
+            scenes: {
+                character_creation: {
+                    text: "<div class='character-creation'><h3>Create Your Character</h3><p>Choose your path:</p></div>",
+                    choices: [
+                        {
+                            text: "<div class='character-option'><div class='char-portrait'>⚔️</div>Warrior (+2 Strength)</div>",
+                            nextScene: "name_selection",
+                            effects: { class: "Warrior", strength: 2 }
+                        },
+                        {
+                            text: "<div class='character-option'><div class='char-portrait'>🏹</div>Rogue (+2 Agility)</div>",
+                            nextScene: "name_selection",
+                            effects: { class: "Rogue", agility: 2 }
+                        },
+                        {
+                            text: "<div class='character-option'><div class='char-portrait'>🔮</div>Mage (+2 Intelligence)</div>",
+                            nextScene: "name_selection",
+                            effects: { class: "Mage", intelligence: 2 }
+                        }
+                    ]
+                },
+                name_selection: {
+                    text: "<div class='character-creation'><h3>What is your name?</h3><input type='text' id='name-input' class='char-name-input' placeholder='Enter your name'></div>",
+                    choices: [
+                        {
+                            text: "Confirm Name",
+                            nextScene: "start",
+                            action: "setName"
+                        }
+                    ]
+                },
+                start: {
+                    text: "You stand in the center of Briarwood village, ready to begin your adventure. The sun shines brightly overhead as villagers go about their business.",
+                    choices: [
+                        { text: "Visit the tavern", nextScene: "tavern" },
+                        { text: "Go to the market square", nextScene: "market_square" },
+                        { text: "Check your inventory", nextScene: "inventory_check" }
+                    ]
+                },
+                tavern: {
+                    text: "<div class='npc-portrait'>🍺</div><p>The Rusty Tankard tavern is warm and lively. The bartender notices you enter and waves you over.</p>",
+                    choices: [
+                        { text: "Talk to the bartender", nextScene: "bartender_talk" },
+                        { text: "Look for work", nextScene: "tavern_work" },
+                        { text: "Return to village center", nextScene: "start" }
+                    ]
+                },
+                bartender_talk: {
+                    text: "<div class='npc-portrait'>🍺</div><p>The bartender wipes down the counter as you approach.</p><p>'What'll you have?'</p>",
+                    choices: [
+                        { text: "Any work available?", nextScene: "bartender_quest" },
+                        { text: "Just a drink", nextScene: "bartender_drink" },
+                        { text: "Never mind", nextScene: "tavern" }
+                    ]
+                },
+                merchant_shop: {
+                    text: "<div class='npc-portrait'>💰</div><p>'Here's what I have for sale:'</p>" +
+                          "<div class='merchant-item'><span>Health Potion</span><span>30 gold</span></div>" +
+                          "<div class='merchant-item'><span>Iron Dagger</span><span>50 gold</span></div>" +
+                          "<div class='merchant-item'><span>Wool Cloak</span><span>40 gold</span></div>",
+                    choices: [
+                        { text: "Buy Health Potion (30 gold)", nextScene: "buy_item", action: "buy:health_potion", requires: { gold: 30 } },
+                        { text: "Buy Iron Dagger (50 gold)", nextScene: "buy_item", action: "buy:dagger", requires: { gold: 50 } },
+                        { text: "Buy Wool Cloak (40 gold)", nextScene: "buy_item", action: "buy:cloak", requires: { gold: 40 } },
+                        { text: "Never mind", nextScene: "market_square" }
+                    ]
+                },
+                buy_item: {
+                    text: "You make your purchase and the merchant thanks you for your business.",
+                    choices: [
+                        { text: "Continue shopping", nextScene: "merchant_shop" },
+                        { text: "Leave", nextScene: "market_square" }
+                    ]
                 }
             }
         };
@@ -233,26 +416,31 @@
         // Game Functions
         function loadScene(sceneId) {
             const scene = gameData.scenes[sceneId];
-            if (!scene) return;
+            if (!scene) {
+                console.error(`Scene ${sceneId} not found!`);
+                return;
+            }
             
             gameData.currentScene = sceneId;
-            document.getElementById('story').innerHTML = `<p>${scene.text}</p>`;
+            document.getElementById('story').innerHTML = scene.text;
             
             const choicesContainer = document.getElementById('choices');
             choicesContainer.innerHTML = '';
             
-            scene.choices.forEach(choice => {
-                const button = document.createElement('button');
-                button.className = 'choice-btn';
-                button.textContent = choice.text;
-                button.onclick = () => makeChoice(choice);
-                
-                if (choice.requires && !hasRequirements(choice.requires)) {
-                    button.disabled = true;
-                }
-                
-                choicesContainer.appendChild(button);
-            });
+            if (scene.choices) {
+                scene.choices.forEach(choice => {
+                    const button = document.createElement('button');
+                    button.className = 'choice-btn';
+                    button.innerHTML = choice.text;
+                    button.onclick = () => makeChoice(choice);
+                    
+                    if (choice.requires && !hasRequirements(choice.requires)) {
+                        button.disabled = true;
+                    }
+                    
+                    choicesContainer.appendChild(button);
+                });
+            }
             
             if (scene.effects) {
                 applyEffects(scene.effects);
@@ -262,10 +450,61 @@
         }
 
         function makeChoice(choice) {
+            if (choice.action) {
+                handleAction(choice.action);
+            }
+            
             if (choice.effects) {
                 applyEffects(choice.effects);
             }
-            loadScene(choice.nextScene);
+            
+            if (choice.nextScene) {
+                loadScene(choice.nextScene);
+            } else {
+                updateUI();
+            }
+        }
+
+        function handleAction(action) {
+            const [actionType, actionParam] = action.split(':');
+            
+            switch(actionType) {
+                case 'setName':
+                    gameData.player.name = document.getElementById('name-input').value;
+                    break;
+                    
+                case 'buy':
+                    if (gameData.player.gold >= gameData.items[actionParam].value) {
+                        gameData.player.gold -= gameData.items[actionParam].value;
+                        gameData.player.inventory.push(actionParam);
+                    }
+                    break;
+                    
+                case 'startDialogue':
+                    startDialogue(actionParam);
+                    break;
+            }
+        }
+
+        function startDialogue(npcId) {
+            const npc = gameData.npcs[npcId];
+            let dialogueText = `<div class='npc-portrait'>${npc.portrait}</div><p><b>${npc.name}:</b> ${npc.dialogue.greeting}</p>`;
+            
+            const choices = npc.dialogue.options.map(option => {
+                return {
+                    text: option.text,
+                    response: option.response,
+                    nextScene: option.nextScene || `dialogue_${npcId}`,
+                    effects: option.effects
+                };
+            });
+            
+            gameData.scenes[`dialogue_${npcId}`] = {
+                text: dialogueText,
+                choices: choices
+            };
+            
+            loadScene(`dialogue_${npcId}`);
         }
 
         function applyEffects(effects) {
@@ -274,22 +513,44 @@
             }
             if (effects.reputation) {
                 gameData.player.reputation += effects.reputation;
+                gameData.player.reputation = Math.max(0, Math.min(100, gameData.player.reputation));
+            }
+            if (effects.class) {
+                gameData.player.class = effects.class;
+            }
+            if (effects.strength) {
+                gameData.player.stats.strength += effects.strength;
+            }
+            if (effects.agility) {
+                gameData.player.stats.agility += effects.agility;
+            }
+            if (effects.intelligence) {
+                gameData.player.stats.intelligence += effects.intelligence;
+            }
+            if (effects.charisma) {
+                gameData.player.stats.charisma += effects.charisma;
             }
             if (effects.addItem) {
                 gameData.player.inventory.push(effects.addItem);
             }
+            
             updateUI();
         }
 
         function hasRequirements(requires) {
-            if (requires.gold && gameData.player.gold < requires.gold) {
-                return false;
+            for (const [key, value] of Object.entries(requires)) {
+                if (key === 'gold' && gameData.player.gold < value) return false;
+                if (key in gameData.player.stats && gameData.player.stats[key] < value) return false;
+                if (key === 'item' && !gameData.player.inventory.includes(value)) return false;
             }
             return true;
         }
 
         function updateUI() {
+            document.getElementById('player-name').textContent = gameData.player.name || "-";
+            document.getElementById('player-class').textContent = gameData.player.class || "-";
             document.getElementById('gold').textContent = gameData.player.gold;
+            document.getElementById('gold-display').textContent = `(${gameData.player.gold} gold)`;
             
             let repText;
             if (gameData.player.reputation < 20) repText = "Hated";
