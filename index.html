@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medieval Quest</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1>Medieval Quest</h1>
+            <div class="player-stats">
+                <span id="player-name">Adventurer</span>
+                <span id="player-gold">100 gold</span>
+                <span id="player-rep">Neutral</span>
+            </div>
+        </header>
+        
+        <main class="game-content">
+            <div id="story-text" class="story-text">
+                <p>Welcome to the realm of Eldermere, where your choices shape your destiny...</p>
+            </div>
+            
+            <div id="choices" class="choices-container">
+                <!-- Choices will be injected here -->
+            </div>
+            
+            <div class="inventory-ui">
+                <h3>Inventory</h3>
+                <div id="inventory" class="inventory-items">
+                    <!-- Items will appear here -->
+                </div>
+            </div>
+        </main>
+        
+        <footer class="game-footer">
+            <button id="save-btn">Save Quest</button>
+            <button id="load-btn">Load Quest</button>
+        </footer>
+    </div>
+    
+    <script src="js/player.js"></script>
+    <script src="js/world.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
