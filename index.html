@@ -13,16 +13,17 @@
             margin: 0;
             padding: 20px;
             line-height: 1.6;
+            background-image: url('https://www.transparenttextures.com/patterns/old-map.png');
         }
         
         .game-container {
             max-width: 800px;
             margin: 0 auto;
             background-color: #3a2c1a;
-            border: 10px solid #8b4513;
-            border-radius: 5px;
+            border: 15px solid transparent;
+            border-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png') 30 round;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
             padding: 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
         
         .header {
@@ -36,36 +37,44 @@
             color: #d4af37;
             text-shadow: 2px 2px 4px #000;
             margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
         }
         
         .player-stats {
             display: flex;
             justify-content: space-around;
-            background-color: #2a2015;
+            background-color: rgba(0, 0, 0, 0.3);
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 20px;
             flex-wrap: wrap;
+            gap: 10px;
         }
         
         .stat {
             text-align: center;
-            margin: 5px;
-            min-width: 80px;
+            min-width: 100px;
+        }
+        
+        .stat-label {
+            color: #d4af37;
+            font-size: 0.9rem;
         }
         
         .stat-value {
-            color: #d4af37;
             font-weight: bold;
+            font-size: 1.1rem;
         }
         
         .story-area {
-            background-color: #2a2015;
+            background-color: rgba(42, 32, 21, 0.8);
             padding: 20px;
             border-radius: 5px;
-            min-height: 150px;
+            min-height: 200px;
             margin-bottom: 20px;
             border: 1px solid #8b4513;
+            font-size: 1.1rem;
         }
         
         .choices-area {
@@ -79,9 +88,9 @@
             background-color: #3a2c1a;
             color: #e6d5b8;
             border: 2px solid #8b4513;
-            padding: 12px;
+            padding: 15px;
             font-family: 'MedievalSharp', cursive;
-            font-size: 16px;
+            font-size: 1rem;
             cursor: pointer;
             border-radius: 5px;
             transition: all 0.3s;
@@ -90,15 +99,19 @@
         
         .choice-btn:hover {
             background-color: #8b4513;
+            transform: translateX(5px);
         }
         
         .choice-btn:disabled {
-            opacity: 0.6;
+            background-color: #2a2015;
+            color: #6b5b4b;
+            border-color: #6b5b4b;
             cursor: not-allowed;
+            transform: none;
         }
         
         .inventory-area {
-            background-color: #2a2015;
+            background-color: rgba(42, 32, 21, 0.8);
             padding: 15px;
             border-radius: 5px;
             border: 1px solid #8b4513;
@@ -108,14 +121,16 @@
         .inventory-title {
             color: #d4af37;
             margin-top: 0;
-            border-bottom: 1px solid #8b4513;
+            border-bottom: 2px solid #8b4513;
             padding-bottom: 5px;
+            text-align: center;
         }
         
         .inventory-items {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            justify-content: center;
         }
         
         .inventory-item {
@@ -124,34 +139,49 @@
             border-radius: 5px;
             border: 1px solid #8b4513;
             cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .inventory-item:hover {
+            background-color: #8b4513;
         }
         
         .game-controls {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #8b4513;
         }
         
         .control-btn {
             background-color: #8b4513;
             color: #fff;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 25px;
             font-family: 'MedievalSharp', cursive;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .control-btn:hover {
+            background-color: #a05a28;
+            transform: scale(1.05);
         }
         
         .npc-portrait {
             width: 100px;
             height: 100px;
             border: 3px solid #8b4513;
-            border-radius: 5px;
+            border-radius: 50%;
             margin: 0 auto 15px;
             background-color: #2a2015;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 3rem;
             color: #d4af37;
         }
         
@@ -159,8 +189,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px;
+            padding: 10px;
             border-bottom: 1px dashed #8b4513;
+            margin-bottom: 5px;
         }
         
         .merchant-item:last-child {
@@ -173,18 +204,19 @@
         
         .character-option {
             display: inline-block;
-            margin: 10px;
+            margin: 15px;
             cursor: pointer;
             transition: all 0.3s;
+            width: 120px;
         }
         
         .character-option:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
         
         .char-portrait {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             background-color: #2a2015;
             border: 3px solid #d4af37;
@@ -192,39 +224,77 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
+            font-size: 3rem;
         }
         
         .char-name-input {
             background: #2a2015;
             border: 2px solid #8b4513;
             color: #e6d5b8;
-            padding: 8px;
+            padding: 10px;
             font-family: 'MedievalSharp', cursive;
-            margin-top: 10px;
-            width: 200px;
+            margin: 15px auto;
+            width: 250px;
+            display: block;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        .quest-log {
+            background-color: rgba(42, 32, 21, 0.8);
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #8b4513;
+            margin-top: 20px;
+        }
+        
+        .quest-title {
+            color: #d4af37;
+            border-bottom: 1px solid #8b4513;
+            padding-bottom: 5px;
+        }
+        
+        .quest-entry {
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .character-option {
+                margin: 10px;
+                width: 100px;
+            }
+            
+            .char-portrait {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+            
+            .stat {
+                min-width: 80px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="game-container">
         <div class="header">
-            <h1>Medieval Quest</h1>
+            <h1>MEDIEVAL QUEST</h1>
             <div class="player-stats">
                 <div class="stat">
-                    <div>Name</div>
+                    <div class="stat-label">Name</div>
                     <div class="stat-value" id="player-name">-</div>
                 </div>
                 <div class="stat">
-                    <div>Gold</div>
-                    <div class="stat-value" id="gold">0</div>
-                </div>
-                <div class="stat">
-                    <div>Class</div>
+                    <div class="stat-label">Class</div>
                     <div class="stat-value" id="player-class">-</div>
                 </div>
                 <div class="stat">
-                    <div>Reputation</div>
+                    <div class="stat-label">Gold</div>
+                    <div class="stat-value" id="gold">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Reputation</div>
                     <div class="stat-value" id="reputation">-</div>
                 </div>
             </div>
@@ -239,15 +309,22 @@
         </div>
         
         <div class="inventory-area">
-            <h3 class="inventory-title">Inventory <span id="gold-display">(0 gold)</span></h3>
+            <h3 class="inventory-title">INVENTORY <span id="gold-display">(0 gold)</span></h3>
             <div class="inventory-items" id="inventory">
                 <!-- Items will appear here -->
             </div>
         </div>
         
+        <div class="quest-log" id="quest-log">
+            <h3 class="quest-title">ACTIVE QUESTS</h3>
+            <div id="quest-entries">
+                <!-- Quests will appear here -->
+            </div>
+        </div>
+        
         <div class="game-controls">
-            <button class="control-btn" id="save-btn">Save Game</button>
-            <button class="control-btn" id="load-btn">Load Game</button>
+            <button class="control-btn" id="save-btn">SAVE GAME</button>
+            <button class="control-btn" id="load-btn">LOAD GAME</button>
         </div>
     </div>
 
@@ -266,149 +343,536 @@
                     agility: 5,
                     intelligence: 5,
                     charisma: 5
-                }
+                },
+                quests: [],
+                flags: {}
             },
             items: {
                 health_potion: {
                     id: "health_potion",
                     name: "Health Potion",
-                    description: "Restores 20 health",
+                    description: "Restores 20 health when consumed",
                     type: "consumable",
                     value: 30
                 },
                 dagger: {
                     id: "dagger",
                     name: "Iron Dagger",
-                    description: "Small but deadly",
+                    description: "Small but deadly (Damage +3)",
                     type: "weapon",
                     value: 50,
-                    damage: 5
+                    damage: 3
                 },
                 cloak: {
                     id: "cloak",
                     name: "Wool Cloak",
-                    description: "Provides basic protection",
+                    description: "Provides basic protection (Defense +2)",
                     type: "armor",
                     value: 40,
                     defense: 2
+                },
+                sword: {
+                    id: "sword",
+                    name: "Steel Sword",
+                    description: "A well-made weapon (Damage +5)",
+                    type: "weapon",
+                    value: 80,
+                    damage: 5
+                },
+                herbs: {
+                    id: "herbs",
+                    name: "Medicinal Herbs",
+                    description: "Can be used to make potions",
+                    type: "material",
+                    value: 10
                 }
             },
             npcs: {
                 bartender: {
                     name: "Gareth",
                     portrait: "🍺",
+                    relationship: 50,
                     dialogue: {
-                        greeting: "'What'll you have?'",
-                        options: [
-                            {
-                                text: "Any work available?",
-                                response: "'Aye, I might have something for you...'",
-                                nextScene: "bartender_quest"
-                            },
-                            {
-                                text: "Just a drink",
-                                response: "'Here you go. That'll be 2 copper.'",
-                                effects: { gold: -2 }
-                            },
-                            {
-                                text: "Who hangs around here?",
-                                response: "'All sorts. Mercenaries, travelers, the occasional shady character.'"
-                            }
-                        ]
+                        default: {
+                            greeting: "'What'll you have?'",
+                            options: [
+                                {
+                                    text: "Any work available?",
+                                    response: "'Aye, I might have something for you...'",
+                                    nextScene: "bartender_quest"
+                                },
+                                {
+                                    text: "Just a drink (2 gold)",
+                                    response: "'Here you go. That'll be 2 gold.'",
+                                    effects: { gold: -2 },
+                                    requires: { gold: 2 }
+                                },
+                                {
+                                    text: "Who hangs around here?",
+                                    response: "'All sorts. Mercenaries, travelers, the occasional shady character.'"
+                                },
+                                {
+                                    text: "Goodbye",
+                                    nextScene: "tavern"
+                                }
+                            ]
+                        },
+                        quest_active: {
+                            greeting: "'Back so soon? Find Thom's sword yet?'",
+                            options: [
+                                {
+                                    text: "Still working on it",
+                                    response: "'Well don't take too long about it.'"
+                                },
+                                {
+                                    text: "I have the sword!",
+                                    nextScene: "return_sword",
+                                    requires: { item: "sword" }
+                                },
+                                {
+                                    text: "Goodbye",
+                                    nextScene: "tavern"
+                                }
+                            ]
+                        }
                     }
                 },
                 merchant: {
                     name: "Old Thom",
                     portrait: "💰",
+                    relationship: 40,
                     dialogue: {
-                        greeting: "'Welcome to my humble shop. What can I do for you?'",
-                        options: [
-                            {
-                                text: "Show me your wares",
-                                response: "'Of course! Take a look...'",
-                                nextScene: "merchant_shop"
-                            },
-                            {
-                                text: "What's new in town?",
-                                response: "'I heard the blacksmith got a shipment of rare metals.'"
-                            }
-                        ]
+                        default: {
+                            greeting: "'Welcome to my humble shop. What can I do for you?'",
+                            options: [
+                                {
+                                    text: "Show me your wares",
+                                    response: "'Of course! Take a look...'",
+                                    nextScene: "merchant_shop"
+                                },
+                                {
+                                    text: "What's new in town?",
+                                    response: "'I heard the blacksmith got a shipment of rare metals from the mountains.'"
+                                },
+                                {
+                                    text: "Goodbye",
+                                    nextScene: "market_square"
+                                }
+                            ]
+                        }
                     }
+                },
+                blacksmith: {
+                    name: "Hrothgar",
+                    portrait: "⚒️",
+                    relationship: 30,
+                    dialogue: {
+                        default: {
+                            greeting: "'Hail traveler! Need weapons or armor?'",
+                            options: [
+                                {
+                                    text: "What do you have for sale?",
+                                    response: "'Fine steel weapons and sturdy armor. Take a look.'",
+                                    nextScene: "blacksmith_shop"
+                                },
+                                {
+                                    text: "I hear you got special metals",
+                                    response: "'Aye, but those are for serious craftsmen. You don't look the type.'",
+                                    requires: { quest: "mining_troubles" }
+                                },
+                                {
+                                    text: "Goodbye",
+                                    nextScene: "market_square"
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            quests: {
+                stolen_sword: {
+                    id: "stolen_sword",
+                    name: "Stolen Sword",
+                    description: "Recover Thom's stolen sword from the bandits at the old mill",
+                    reward: { gold: 50, reputation: 10 },
+                    stages: [
+                        "Find the bandits' hideout",
+                        "Recover Thom's sword",
+                        "Return the sword to Gareth"
+                    ]
+                },
+                mining_troubles: {
+                    id: "mining_troubles",
+                    name: "Mining Troubles",
+                    description: "Investigate why the iron shipments from the mines have stopped",
+                    reward: { gold: 100, reputation: 20, items: ["sword"] },
+                    stages: [
+                        "Talk to the miners",
+                        "Find out what's blocking the mine",
+                        "Report back to Hrothgar"
+                    ]
                 }
             },
             scenes: {
                 character_creation: {
-                    text: "<div class='character-creation'><h3>Create Your Character</h3><p>Choose your path:</p></div>",
+                    id: 'character_creation',
+                    text: `
+                        <div class='character-creation'>
+                            <h2>BEGIN YOUR ADVENTURE</h2>
+                            <p>The realm of Eldermere needs heroes. Choose your path:</p>
+                        </div>
+                    `,
                     choices: [
                         {
-                            text: "<div class='character-option'><div class='char-portrait'>⚔️</div>Warrior (+2 Strength)</div>",
+                            text: `
+                                <div class='character-option'>
+                                    <div class='char-portrait'>⚔️</div>
+                                    <div>Warrior</div>
+                                    <small>+2 Strength, +1 Defense</small>
+                                </div>
+                            `,
                             nextScene: "name_selection",
-                            effects: { class: "Warrior", strength: 2 }
+                            effects: { 
+                                class: "Warrior", 
+                                strength: 2,
+                                agility: -1,
+                                defense: 1 
+                            }
                         },
                         {
-                            text: "<div class='character-option'><div class='char-portrait'>🏹</div>Rogue (+2 Agility)</div>",
+                            text: `
+                                <div class='character-option'>
+                                    <div class='char-portrait'>🏹</div>
+                                    <div>Rogue</div>
+                                    <small>+2 Agility, +1 Charisma</small>
+                                </div>
+                            `,
                             nextScene: "name_selection",
-                            effects: { class: "Rogue", agility: 2 }
+                            effects: { 
+                                class: "Rogue", 
+                                agility: 2,
+                                strength: -1,
+                                charisma: 1 
+                            }
                         },
                         {
-                            text: "<div class='character-option'><div class='char-portrait'>🔮</div>Mage (+2 Intelligence)</div>",
+                            text: `
+                                <div class='character-option'>
+                                    <div class='char-portrait'>🔮</div>
+                                    <div>Mage</div>
+                                    <small>+2 Intelligence, +1 Wisdom</small>
+                                </div>
+                            `,
                             nextScene: "name_selection",
-                            effects: { class: "Mage", intelligence: 2 }
+                            effects: { 
+                                class: "Mage", 
+                                intelligence: 2,
+                                strength: -1,
+                                wisdom: 1 
+                            }
                         }
                     ]
                 },
                 name_selection: {
-                    text: "<div class='character-creation'><h3>What is your name?</h3><input type='text' id='name-input' class='char-name-input' placeholder='Enter your name'></div>",
+                    id: 'name_selection',
+                    text: `
+                        <div class='character-creation'>
+                            <h2>WHAT IS YOUR NAME?</h2>
+                            <input type='text' id='name-input' class='char-name-input' placeholder='Enter your name' maxlength="20">
+                            <p>A name that will be remembered throughout the realm!</p>
+                        </div>
+                    `,
                     choices: [
                         {
-                            text: "Confirm Name",
-                            nextScene: "start",
+                            text: "BEGIN ADVENTURE",
+                            nextScene: "game_start",
                             action: "setName"
                         }
                     ]
                 },
-                start: {
-                    text: "You stand in the center of Briarwood village, ready to begin your adventure. The sun shines brightly overhead as villagers go about their business.",
+                game_start: {
+                    id: 'game_start',
+                    text: `
+                        <p>You stand at the gates of Briarwood, a bustling village on the edge of the kingdom. The sun shines brightly as merchants call out their wares and townsfolk go about their daily business.</p>
+                        <p>As ${gameData.player.name} the ${gameData.player.class}, you've come seeking adventure and fortune. Where will you begin?</p>
+                    `,
                     choices: [
-                        { text: "Visit the tavern", nextScene: "tavern" },
-                        { text: "Go to the market square", nextScene: "market_square" },
-                        { text: "Check your inventory", nextScene: "inventory_check" }
+                        { 
+                            text: "Enter the village", 
+                            nextScene: "village_square",
+                            effects: { gold: 50 } // Starting gold
+                        },
+                        { 
+                            text: "Visit the nearby tavern", 
+                            nextScene: "tavern" 
+                        },
+                        { 
+                            text: "Check your equipment", 
+                            nextScene: "inventory_check" 
+                        }
+                    ]
+                },
+                village_square: {
+                    id: 'village_square',
+                    text: `
+                        <p>The village square is alive with activity. Farmers sell their produce, children play near the fountain, and guards patrol the perimeter.</p>
+                        <p>Several establishments surround the square:</p>
+                        <ul>
+                            <li>The Rusty Tankard tavern</li>
+                            <li>Old Thom's General Goods</li>
+                            <li>Hrothgar's Smithy</li>
+                            <li>The town notice board</li>
+                        </ul>
+                    `,
+                    choices: [
+                        { text: "Go to the tavern", nextScene: "tavern" },
+                        { text: "Visit the merchant", nextScene: "merchant_shop" },
+                        { text: "Check the blacksmith", nextScene: "blacksmith" },
+                        { text: "Examine the notice board", nextScene: "notice_board" },
+                        { text: "Leave the village", nextScene: "countryside" }
                     ]
                 },
                 tavern: {
-                    text: "<div class='npc-portrait'>🍺</div><p>The Rusty Tankard tavern is warm and lively. The bartender notices you enter and waves you over.</p>",
+                    id: 'tavern',
+                    text: `
+                        <div class='npc-portrait'>🍺</div>
+                        <p>The Rusty Tankard is warm and lively, filled with the smell of roasted meat and ale. A bard plays in the corner as patrons laugh and drink.</p>
+                        <p>The bartender notices you enter and waves you over.</p>
+                    `,
                     choices: [
-                        { text: "Talk to the bartender", nextScene: "bartender_talk" },
-                        { text: "Look for work", nextScene: "tavern_work" },
-                        { text: "Return to village center", nextScene: "start" }
+                        { 
+                            text: "Talk to the bartender", 
+                            nextScene: "bartender_talk" 
+                        },
+                        { 
+                            text: "Listen to the bard's tales", 
+                            nextScene: "bard_tales",
+                            effects: { intelligence: 1 } 
+                        },
+                        { 
+                            text: "Look for work", 
+                            nextScene: "tavern_work" 
+                        },
+                        { 
+                            text: "Return to village square", 
+                            nextScene: "village_square" 
+                        }
                     ]
                 },
                 bartender_talk: {
-                    text: "<div class='npc-portrait'>🍺</div><p>The bartender wipes down the counter as you approach.</p><p>'What'll you have?'</p>",
+                    id: 'bartender_talk',
+                    text: `
+                        <div class='npc-portrait'>🍺</div>
+                        <p>The bartender wipes down the counter as you approach.</p>
+                        <p><b>Gareth:</b> "${gameData.player.quests.includes('stolen_sword') ? 
+                            'Back so soon? Find Thom\'s sword yet?' : 
+                            'What\'ll you have?'}"</p>
+                    `,
+                    choices: function() {
+                        if (gameData.player.quests.includes('stolen_sword')) {
+                            return [
+                                {
+                                    text: "Still working on it",
+                                    response: "'Well don't take too long about it.'",
+                                    nextScene: "tavern"
+                                },
+                                {
+                                    text: "I have the sword!",
+                                    nextScene: "return_sword",
+                                    requires: { item: "sword" }
+                                },
+                                {
+                                    text: "Goodbye",
+                                    nextScene: "tavern"
+                                }
+                            ];
+                        } else {
+                            return [
+                                {
+                                    text: "Any work available?",
+                                    response: "'Aye, I might have something for you...'",
+                                    nextScene: "bartender_quest"
+                                },
+                                {
+                                    text: "Just a drink (2 gold)",
+                                    response: "'Here you go. That'll be 2 gold.'",
+                                    effects: { gold: -2 },
+                                    requires: { gold: 2 },
+                                    nextScene: "tavern"
+                                },
+                                {
+                                    text: "Who hangs around here?",
+                                    response: "'All sorts. Mercenaries, travelers, the occasional shady character.'",
+                                    nextScene: "bartender_talk"
+                                },
+                                {
+                                    text: "Goodbye",
+                                    nextScene: "tavern"
+                                }
+                            ];
+                        }
+                    }
+                },
+                bartender_quest: {
+                    id: 'bartender_quest',
+                    text: `
+                        <div class='npc-portrait'>🍺</div>
+                        <p><b>Gareth:</b> "Old Thom had his sword stolen last night by some ruffians. Bring it back and there's 50 gold in it for you."</p>
+                        <p>He leans in closer. "They were last seen heading toward the old mill northeast of town."</p>
+                    `,
                     choices: [
-                        { text: "Any work available?", nextScene: "bartender_quest" },
-                        { text: "Just a drink", nextScene: "bartender_drink" },
-                        { text: "Never mind", nextScene: "tavern" }
+                        {
+                            text: "Accept the quest",
+                            nextScene: "sword_quest_accepted",
+                            action: "addQuest:stolen_sword"
+                        },
+                        {
+                            text: "Ask for more information",
+                            nextScene: "sword_quest_info"
+                        },
+                        {
+                            text: "Decline politely",
+                            nextScene: "tavern",
+                            effects: { reputation: -1 }
+                        }
+                    ]
+                },
+                sword_quest_accepted: {
+                    id: 'sword_quest_accepted',
+                    text: `
+                        <p>You've agreed to retrieve Thom's stolen sword. The old mill northeast of town would be a likely hideout for bandits.</p>
+                        <p>How will you prepare for this task?</p>
+                    `,
+                    choices: [
+                        {
+                            text: "Go directly to the mill",
+                            nextScene: "mill_approach"
+                        },
+                        {
+                            text: "Buy supplies first (30 gold)",
+                            nextScene: "merchant_shop",
+                            requires: { gold: 30 }
+                        },
+                        {
+                            text: "Try to recruit help in the tavern",
+                            nextScene: "recruit_help",
+                            requires: { charisma: 6 }
+                        },
+                        {
+                            text: "Return to village square",
+                            nextScene: "village_square"
+                        }
                     ]
                 },
                 merchant_shop: {
-                    text: "<div class='npc-portrait'>💰</div><p>'Here's what I have for sale:'</p>" +
-                          "<div class='merchant-item'><span>Health Potion</span><span>30 gold</span></div>" +
-                          "<div class='merchant-item'><span>Iron Dagger</span><span>50 gold</span></div>" +
-                          "<div class='merchant-item'><span>Wool Cloak</span><span>40 gold</span></div>",
+                    id: 'merchant_shop',
+                    text: `
+                        <div class='npc-portrait'>💰</div>
+                        <p><b>Old Thom:</b> "Here's what I have for sale today:"</p>
+                        <div class='merchant-item'><span>Health Potion</span><span>30 gold</span></div>
+                        <div class='merchant-item'><span>Iron Dagger</span><span>50 gold</span></div>
+                        <div class='merchant-item'><span>Wool Cloak</span><span>40 gold</span></div>
+                    `,
                     choices: [
-                        { text: "Buy Health Potion (30 gold)", nextScene: "buy_item", action: "buy:health_potion", requires: { gold: 30 } },
-                        { text: "Buy Iron Dagger (50 gold)", nextScene: "buy_item", action: "buy:dagger", requires: { gold: 50 } },
-                        { text: "Buy Wool Cloak (40 gold)", nextScene: "buy_item", action: "buy:cloak", requires: { gold: 40 } },
-                        { text: "Never mind", nextScene: "market_square" }
+                        {
+                            text: "Buy Health Potion (30 gold)",
+                            nextScene: "buy_item",
+                            action: "buy:health_potion",
+                            requires: { gold: 30 }
+                        },
+                        {
+                            text: "Buy Iron Dagger (50 gold)",
+                            nextScene: "buy_item",
+                            action: "buy:dagger",
+                            requires: { gold: 50 }
+                        },
+                        {
+                            text: "Buy Wool Cloak (40 gold)",
+                            nextScene: "buy_item",
+                            action: "buy:cloak",
+                            requires: { gold: 40 }
+                        },
+                        {
+                            text: "Ask about the stolen sword",
+                            nextScene: "ask_about_sword",
+                            requires: { quest: "stolen_sword" }
+                        },
+                        {
+                            text: "Leave",
+                            nextScene: "village_square"
+                        }
                     ]
                 },
                 buy_item: {
-                    text: "You make your purchase and the merchant thanks you for your business.",
+                    id: 'buy_item',
+                    text: `
+                        <div class='npc-portrait'>💰</div>
+                        <p><b>Old Thom:</b> "A fine choice! Anything else?"</p>
+                    `,
                     choices: [
-                        { text: "Continue shopping", nextScene: "merchant_shop" },
-                        { text: "Leave", nextScene: "market_square" }
+                        {
+                            text: "Continue shopping",
+                            nextScene: "merchant_shop"
+                        },
+                        {
+                            text: "Leave",
+                            nextScene: "village_square"
+                        }
                     ]
+                },
+                // More scenes would continue here...
+                mill_approach: {
+                    id: 'mill_approach',
+                    text: `
+                        <p>You approach the old mill cautiously. The building is dilapidated but shows signs of recent activity - fresh footprints in the mud and smoke from the chimney.</p>
+                        <p>How will you enter?</p>
+                    `,
+                    choices: [
+                        {
+                            text: "Knock on the door and demand the sword",
+                            nextScene: "mill_confrontation",
+                            requires: { strength: 6 }
+                        },
+                        {
+                            text: "Sneak around back",
+                            nextScene: "mill_sneak",
+                            requires: { agility: 6 }
+                        },
+                        {
+                            text: "Wait and observe first",
+                            nextScene: "mill_watch"
+                        },
+                        {
+                            text: "Return to village to prepare more",
+                            nextScene: "village_square"
+                        }
+                    ]
+                },
+                return_sword: {
+                    id: 'return_sword',
+                    text: `
+                        <div class='npc-portrait'>🍺</div>
+                        <p><b>Gareth:</b> "You found it! Thom will be pleased. Here's your reward as promised."</p>
+                        <p>He hands you a small pouch of coins.</p>
+                    `,
+                    choices: [
+                        {
+                            text: "Ask about other work",
+                            nextScene: "more_work"
+                        },
+                        {
+                            text: "Thank him and leave",
+                            nextScene: "tavern"
+                        }
+                    ],
+                    effects: function() {
+                        return {
+                            gold: 50,
+                            reputation: 10,
+                            removeItem: "sword",
+                            completeQuest: "stolen_sword"
+                        };
+                    }
                 }
             }
         };
@@ -422,47 +886,82 @@
             }
             
             gameData.currentScene = sceneId;
-            document.getElementById('story').innerHTML = scene.text;
+            
+            // Process scene text (could be string or function)
+            let sceneText = typeof scene.text === 'function' ? scene.text() : scene.text;
+            document.getElementById('story').innerHTML = sceneText;
+            
+            // Process scene choices (could be array or function)
+            let sceneChoices = typeof scene.choices === 'function' ? scene.choices() : scene.choices;
             
             const choicesContainer = document.getElementById('choices');
             choicesContainer.innerHTML = '';
             
-            if (scene.choices) {
-                scene.choices.forEach(choice => {
+            if (sceneChoices && sceneChoices.length > 0) {
+                sceneChoices.forEach(choice => {
                     const button = document.createElement('button');
                     button.className = 'choice-btn';
                     button.innerHTML = choice.text;
                     button.onclick = () => makeChoice(choice);
                     
+                    // Disable if requirements not met
                     if (choice.requires && !hasRequirements(choice.requires)) {
                         button.disabled = true;
                     }
                     
                     choicesContainer.appendChild(button);
                 });
+            } else {
+                // If no choices, provide a default continue button
+                const button = document.createElement('button');
+                button.className = 'choice-btn';
+                button.textContent = "Continue";
+                button.onclick = () => loadScene('village_square'); // Default return to village
+                choicesContainer.appendChild(button);
             }
             
+            // Apply any scene effects
             if (scene.effects) {
-                applyEffects(scene.effects);
+                const effects = typeof scene.effects === 'function' ? scene.effects() : scene.effects;
+                applyEffects(effects);
             }
             
             updateUI();
         }
 
         function makeChoice(choice) {
+            // Handle choice action if present
             if (choice.action) {
                 handleAction(choice.action);
             }
             
+            // Apply any immediate effects
             if (choice.effects) {
                 applyEffects(choice.effects);
             }
             
-            if (choice.nextScene) {
+            // Show response if present before continuing
+            if (choice.response) {
+                document.getElementById('story').innerHTML += `<p><b>${getCurrentNPC()?.name || 'NPC'}:</b> "${choice.response}"</p>`;
+                
+                // If there's a next scene, add a continue button
+                if (choice.nextScene) {
+                    const choicesContainer = document.getElementById('choices');
+                    choicesContainer.innerHTML = '';
+                    
+                    const button = document.createElement('button');
+                    button.className = 'choice-btn';
+                    button.textContent = "Continue";
+                    button.onclick = () => loadScene(choice.nextScene);
+                    choicesContainer.appendChild(button);
+                }
+            } 
+            // Otherwise proceed to next scene
+            else if (choice.nextScene) {
                 loadScene(choice.nextScene);
-            } else {
-                updateUI();
             }
+            
+            updateUI();
         }
 
         function handleAction(action) {
@@ -470,96 +969,113 @@
             
             switch(actionType) {
                 case 'setName':
-                    gameData.player.name = document.getElementById('name-input').value;
+                    const nameInput = document.getElementById('name-input');
+                    if (nameInput && nameInput.value.trim() !== '') {
+                        gameData.player.name = nameInput.value.trim();
+                    } else {
+                        gameData.player.name = "Unknown Adventurer";
+                    }
                     break;
                     
                 case 'buy':
                     if (gameData.player.gold >= gameData.items[actionParam].value) {
                         gameData.player.gold -= gameData.items[actionParam].value;
                         gameData.player.inventory.push(actionParam);
+                        document.getElementById('story').innerHTML += 
+                            `<p>You purchased: ${gameData.items[actionParam].name}</p>`;
                     }
                     break;
                     
-                case 'startDialogue':
-                    startDialogue(actionParam);
+                case 'addQuest':
+                    if (!gameData.player.quests.includes(actionParam)) {
+                        gameData.player.quests.push(actionParam);
+                        document.getElementById('story').innerHTML += 
+                            `<p><b>New Quest:</b> ${gameData.quests[actionParam].name}</p>`;
+                    }
                     break;
             }
         }
 
-        function startDialogue(npcId) {
-            const npc = gameData.npcs[npcId];
-            let dialogueText = `<div class='npc-portrait'>${npc.portrait}</div><p><b>${npc.name}:</b> ${npc.dialogue.greeting}</p>`;
-            
-            const choices = npc.dialogue.options.map(option => {
-                return {
-                    text: option.text,
-                    response: option.response,
-                    nextScene: option.nextScene || `dialogue_${npcId}`,
-                    effects: option.effects
-                };
-            });
-            
-            gameData.scenes[`dialogue_${npcId}`] = {
-                text: dialogueText,
-                choices: choices
-            };
-            
-            loadScene(`dialogue_${npcId}`);
-        }
-
         function applyEffects(effects) {
+            if (!effects) return;
+            
             if (effects.gold) {
                 gameData.player.gold += effects.gold;
+                if (effects.gold > 0) {
+                    document.getElementById('story').innerHTML += `<p>Received ${effects.gold} gold!</p>`;
+                } else {
+                    document.getElementById('story').innerHTML += `<p>Spent ${-effects.gold} gold.</p>`;
+                }
             }
+            
             if (effects.reputation) {
                 gameData.player.reputation += effects.reputation;
                 gameData.player.reputation = Math.max(0, Math.min(100, gameData.player.reputation));
             }
-            if (effects.class) {
-                gameData.player.class = effects.class;
-            }
-            if (effects.strength) {
-                gameData.player.stats.strength += effects.strength;
-            }
-            if (effects.agility) {
-                gameData.player.stats.agility += effects.agility;
-            }
-            if (effects.intelligence) {
-                gameData.player.stats.intelligence += effects.intelligence;
-            }
-            if (effects.charisma) {
-                gameData.player.stats.charisma += effects.charisma;
-            }
+            
             if (effects.addItem) {
                 gameData.player.inventory.push(effects.addItem);
+                document.getElementById('story').innerHTML += `<p>Obtained: ${gameData.items[effects.addItem]?.name || effects.addItem}</p>`;
             }
+            
+            if (effects.removeItem) {
+                const index = gameData.player.inventory.indexOf(effects.removeItem);
+                if (index > -1) {
+                    gameData.player.inventory.splice(index, 1);
+                }
+            }
+            
+            if (effects.completeQuest) {
+                const index = gameData.player.quests.indexOf(effects.completeQuest);
+                if (index > -1) {
+                    gameData.player.quests.splice(index, 1);
+                    document.getElementById('story').innerHTML += 
+                        `<p><b>Quest Completed:</b> ${gameData.quests[effects.completeQuest]?.name || effects.completeQuest}</p>`;
+                }
+            }
+            
+            // Handle stat changes
+            ['strength', 'agility', 'intelligence', 'charisma', 'defense', 'wisdom'].forEach(stat => {
+                if (effects[stat]) {
+                    gameData.player.stats[stat] = (gameData.player.stats[stat] || 0) + effects[stat];
+                }
+            });
             
             updateUI();
         }
 
-        function hasRequirements(requires) {
-            for (const [key, value] of Object.entries(requires)) {
+        function hasRequirements(requirements) {
+            if (!requirements) return true;
+            
+            for (const [key, value] of Object.entries(requirements)) {
                 if (key === 'gold' && gameData.player.gold < value) return false;
-                if (key in gameData.player.stats && gameData.player.stats[key] < value) return false;
+                if (key === 'reputation' && gameData.player.reputation < value) return false;
                 if (key === 'item' && !gameData.player.inventory.includes(value)) return false;
+                if (key === 'quest' && !gameData.player.quests.includes(value)) return false;
+                if (key in gameData.player.stats && gameData.player.stats[key] < value) return false;
             }
             return true;
         }
 
+        function getCurrentNPC() {
+            // Check if current scene is related to an NPC
+            const scene = gameData.scenes[gameData.currentScene];
+            if (scene && scene.id.includes('_talk') || scene.id.includes('_shop')) {
+                const npcId = scene.id.split('_')[0];
+                return gameData.npcs[npcId];
+            }
+            return null;
+        }
+
         function updateUI() {
+            // Update player info
             document.getElementById('player-name').textContent = gameData.player.name || "-";
             document.getElementById('player-class').textContent = gameData.player.class || "-";
             document.getElementById('gold').textContent = gameData.player.gold;
+            document.getElementById('reputation').textContent = getReputationText(gameData.player.reputation);
             document.getElementById('gold-display').textContent = `(${gameData.player.gold} gold)`;
             
-            let repText;
-            if (gameData.player.reputation < 20) repText = "Hated";
-            else if (gameData.player.reputation < 40) repText = "Disliked";
-            else if (gameData.player.reputation < 60) repText = "Neutral";
-            else if (gameData.player.reputation < 80) repText = "Liked";
-            else repText = "Revered";
-            document.getElementById('reputation').textContent = repText;
-            
+            // Update inventory
             const inventoryContainer = document.getElementById('inventory');
             inventoryContainer.innerHTML = '';
             
@@ -573,19 +1089,49 @@
                     inventoryContainer.appendChild(itemElement);
                 }
             });
+            
+            // Update quest log
+            const questLog = document.getElementById('quest-entries');
+            questLog.innerHTML = '';
+            
+            if (gameData.player.quests.length === 0) {
+                questLog.innerHTML = '<p>No active quests</p>';
+            } else {
+                gameData.player.quests.forEach(questId => {
+                    const quest = gameData.quests[questId];
+                    if (quest) {
+                        const questElement = document.createElement('div');
+                        questElement.className = 'quest-entry';
+                        questElement.innerHTML = `
+                            <p><b>${quest.name}</b></p>
+                            <p>${quest.description}</p>
+                        `;
+                        questLog.appendChild(questElement);
+                    }
+                });
+            }
+        }
+
+        function getReputationText(reputation) {
+            if (reputation < 20) return "Hated";
+            if (reputation < 40) return "Disliked";
+            if (reputation < 60) return "Neutral";
+            if (reputation < 80) return "Liked";
+            return "Revered";
         }
 
         function saveGame() {
             localStorage.setItem('medievalQuestSave', JSON.stringify(gameData));
-            alert('Game saved!');
+            alert('Game saved successfully!');
         }
 
         function loadGame() {
             const savedData = localStorage.getItem('medievalQuestSave');
             if (savedData) {
-                Object.assign(gameData, JSON.parse(savedData));
+                const parsed = JSON.parse(savedData);
+                Object.assign(gameData, parsed);
                 loadScene(gameData.currentScene);
-                alert('Game loaded!');
+                alert('Game loaded successfully!');
             } else {
                 alert('No saved game found!');
             }
@@ -594,7 +1140,18 @@
         // Initialize the game
         document.getElementById('save-btn').onclick = saveGame;
         document.getElementById('load-btn').onclick = loadGame;
-        loadScene(gameData.currentScene);
+        
+        // Check for saved game
+        const savedData = localStorage.getItem('medievalQuestSave');
+        if (savedData) {
+            if (confirm('Would you like to load your saved game?')) {
+                loadGame();
+            } else {
+                loadScene(gameData.currentScene);
+            }
+        } else {
+            loadScene(gameData.currentScene);
+        }
     </script>
 </body>
 </html>
